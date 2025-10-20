@@ -1,37 +1,40 @@
 import { useState } from 'react';
 import './App.css';
 import Timeline from './components/Timeline';
-import Toolbar from './components/Toolbar';
-import ShellAllType from './components/ShellAllType';
-import RioZone from './components/RioZone';
-import GasPipeline from './components/GasPipeline';
-import RioHeadquarter from './components/RioHeadquarter';
-import SPFilial from './components/SPFilial';
-import MacaeFilial from './components/MacaeFilial';
 
 function App() {
-  const [selectedZone, setSelectedZone] = useState('rio');
-  const [visibleLayers, setVisibleLayers] = useState({
-    exploration: true,
-    production: true,
-    decommissioning: true
-  });
+  const handleYearSelect = (year) => {
+    console.log('Selected year:', year);
+  };
+
+  const handlePlay = () => {
+    console.log('Play button clicked');
+  };
+
+  const handleSpeedChange = (speed) => {
+    console.log('Speed changed:', speed);
+  };
+
+  const handleLanguageChange = (language) => {
+    console.log('Language changed:', language);
+  };
 
   return (
     <div className="app">
-      {selectedZone === 'rio' && <RioZone />}
-      {selectedZone === 'rio' && <GasPipeline />}
-      {selectedZone === 'rio' && <RioHeadquarter />}
-      {selectedZone === 'rio' && <SPFilial />}
-      {selectedZone === 'rio' && <MacaeFilial />}
-      <ShellAllType />
-      <Timeline />
-      <Toolbar
-        selectedZone={selectedZone}
-        onZoneChange={setSelectedZone}
-        visibleLayers={visibleLayers}
-        onLayerVisibilityChange={setVisibleLayers}
-      />
+      <div style={{
+        padding: '40px',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        minHeight: '100vh'
+      }}>
+        <Timeline
+          onYearSelect={handleYearSelect}
+          onPlay={handlePlay}
+          onSpeedChange={handleSpeedChange}
+          onLanguageChange={handleLanguageChange}
+        />
+      </div>
     </div>
   );
 }
