@@ -1,8 +1,8 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import './Toolbar.css';
 
-function Toolbar({ 
-  selectedArea = 'Rio',
+function Toolbar({
+  selectedArea = 'rio',
   onAreaSelect,
   onLegendToggle,
   activeLegendItems = {
@@ -13,11 +13,16 @@ function Toolbar({
 }) {
   const [currentArea, setCurrentArea] = useState(selectedArea);
 
+  // Update local state when prop changes
+  useEffect(() => {
+    setCurrentArea(selectedArea);
+  }, [selectedArea]);
+
   const areas = [
-    { id: 'barreirinhas', label: 'Barreirinhas', active: false },
-    { id: 'potiguar', label: 'Potiguar', active: false },
-    { id: 'rio', label: 'Rio', active: true },
-    { id: 'pelotas', label: 'Pelotas', active: false }
+    { id: 'barreirinhas', label: 'Barreirinhas' },
+    { id: 'potiguar', label: 'Potiguar' },
+    { id: 'rio', label: 'Rio' },
+    { id: 'pelotas', label: 'Pelotas' }
   ];
 
   const handleAreaClick = (areaId) => {

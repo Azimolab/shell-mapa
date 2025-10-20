@@ -5,6 +5,16 @@ import Toolbar from './components/Toolbar';
 import ShellAllType from './components/ShellAllType';
 
 function App() {
+  const [selectedZone, setSelectedZone] = useState('rio');
+
+  // Map zone names to their corresponding SVG file paths
+  const zoneBackgrounds = {
+    'barreirinhas': '/src/assets/map_sources/barreirinhas.svg',
+    'potiguar': '/src/assets/map_sources/potiguar.svg',
+    'rio': '/src/assets/map_sources/rio.svg',
+    'pelotas': '/src/assets/map_sources/pelotas.svg'
+  };
+
   const handleYearSelect = (year) => {
     console.log('Selected year:', year);
   };
@@ -23,6 +33,7 @@ function App() {
 
   const handleAreaSelect = (area) => {
     console.log('Area selected:', area);
+    setSelectedZone(area.toLowerCase());
   };
 
   const handleLegendToggle = (itemId) => {
@@ -36,7 +47,11 @@ function App() {
         width: '100vw',
         height: '100vh',
         padding: '20px',
-        overflow: 'hidden'
+        overflow: 'hidden',
+        backgroundImage: `url(${zoneBackgrounds[selectedZone]})`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundRepeat: 'no-repeat'
       }}>
         {/* ShellAllType positioned top-left */}
         <div style={{
@@ -57,6 +72,7 @@ function App() {
           zIndex: 10
         }}>
           <Toolbar
+            selectedArea={selectedZone}
             onAreaSelect={handleAreaSelect}
             onLegendToggle={handleLegendToggle}
           />
