@@ -1,8 +1,7 @@
 import { useState } from 'react';
 import './Toolbar.css';
 
-const Toolbar = () => {
-  const [selectedZone, setSelectedZone] = useState('Rio');
+const Toolbar = ({ selectedZone = 'rio', onZoneChange }) => {
   const [visibleLayers, setVisibleLayers] = useState({
     exploration: true,
     production: true,
@@ -99,7 +98,9 @@ const Toolbar = () => {
   ];
 
   const handleZoneClick = (zoneId) => {
-    setSelectedZone(zoneId);
+    if (onZoneChange) {
+      onZoneChange(zoneId);
+    }
   };
 
   const toggleLayerVisibility = (layerId) => {
