@@ -2,6 +2,7 @@ import { useState } from 'react';
 import './App.css';
 import Timeline from './components/Timeline';
 import Toolbar from './components/Toolbar';
+import ShellAllType from './components/ShellAllType';
 
 function App() {
   const handleYearSelect = (year) => {
@@ -37,6 +38,16 @@ function App() {
         padding: '20px',
         overflow: 'hidden'
       }}>
+        {/* ShellAllType positioned top-left */}
+        <div style={{
+          position: 'absolute',
+          top: '30px',
+          left: '30px',
+          zIndex: 10
+        }}>
+          <ShellAllType />
+        </div>
+
         {/* Toolbar positioned middle-right */}
         <div style={{
           position: 'absolute',
