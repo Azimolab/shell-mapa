@@ -3,13 +3,15 @@ import './Toolbar.css';
 
 function Toolbar({
   selectedArea = 'rio',
+  selectedYear = '2025',
   onAreaSelect,
   onLegendToggle,
   activeLegendItems = {
     exploration: true,
     production: true,
     decommissioning: true
-  }
+  },
+  isZoneAvailable = () => true
 }) {
   const [currentArea, setCurrentArea] = useState(selectedArea);
 
@@ -26,8 +28,11 @@ function Toolbar({
   ];
 
   const handleAreaClick = (areaId) => {
-    setCurrentArea(areaId);
-    onAreaSelect?.(areaId);
+    // Only allow click if zone is available
+    if (isZoneAvailable(areaId, selectedYear)) {
+      setCurrentArea(areaId);
+      onAreaSelect?.(areaId);
+    }
   };
 
   const handleLegendToggle = (itemId) => {
@@ -41,15 +46,24 @@ function Toolbar({
         <div className="toolbar-header">
           <h2 className="toolbar-title">Clique para alterar a área visualizada</h2>
           <div className="toolbar-area-tags">
-            {areas.map((area) => (
-              <button
-                key={area.id}
-                className={`toolbar-area-tag ${area.id === currentArea ? 'active' : 'inactive'}`}
-                onClick={() => handleAreaClick(area.id)}
-              >
-                {area.label}
-              </button>
-            ))}
+            {areas.map((area) => {
+              const isAvailable = isZoneAvailable(area.id, selectedYear);
+              const isActive = area.id === currentArea;
+
+              return (
+                <button
+                  key={area.id}
+                  className={`toolbar-area-tag ${
+                    isActive ? 'active' :
+                    isAvailable ? 'inactive' : 'disabled'
+                  }`}
+                  onClick={() => handleAreaClick(area.id)}
+                  disabled={!isAvailable}
+                >
+                  {area.label}
+                </button>
+              );
+            })}
           </div>
         </div>
 

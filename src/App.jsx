@@ -7,6 +7,7 @@ import MapOverlay from './components/MapOverlay';
 
 function App() {
   const [selectedZone, setSelectedZone] = useState('rio');
+  const [selectedYear, setSelectedYear] = useState('2025');
   const [activeLegendItems, setActiveLegendItems] = useState({
     exploration: true,
     production: true,
@@ -21,8 +22,32 @@ function App() {
     'pelotas': '/src/assets/map_sources/pelotas.svg'
   };
 
+  // Function to check if a zone is available based on year
+  const isZoneAvailable = (zone, year) => {
+    const numericYear = year === 'PRÉ 2013' ? 2012 : parseInt(year);
+
+    switch (zone) {
+      case 'barreirinhas':
+        return numericYear >= 2016;
+      case 'potiguar':
+        return numericYear >= 2018;
+      case 'pelotas':
+        return numericYear >= 2024;
+      case 'rio':
+        return true; // Always available
+      default:
+        return true;
+    }
+  };
+
   const handleYearSelect = (year) => {
     console.log('Selected year:', year);
+    setSelectedYear(year);
+
+    // If current zone is not available in the selected year, switch to Rio
+    if (!isZoneAvailable(selectedZone, year)) {
+      setSelectedZone('rio');
+    }
   };
 
   const handlePlay = () => {
@@ -39,7 +64,12 @@ function App() {
 
   const handleAreaSelect = (area) => {
     console.log('Area selected:', area);
-    setSelectedZone(area.toLowerCase());
+    const zone = area.toLowerCase();
+
+    // Only allow selection if zone is available in current year
+    if (isZoneAvailable(zone, selectedYear)) {
+      setSelectedZone(zone);
+    }
   };
 
   const handleLegendToggle = (itemId) => {
@@ -89,9 +119,11 @@ function App() {
         }}>
           <Toolbar
             selectedArea={selectedZone}
+            selectedYear={selectedYear}
             onAreaSelect={handleAreaSelect}
             onLegendToggle={handleLegendToggle}
             activeLegendItems={activeLegendItems}
+            isZoneAvailable={isZoneAvailable}
           />
         </div>
 
@@ -104,6 +136,7 @@ function App() {
           zIndex: 10
         }}>
           <Timeline
+            selectedYear={selectedYear}
             onYearSelect={handleYearSelect}
             onPlay={handlePlay}
             onSpeedChange={handleSpeedChange}

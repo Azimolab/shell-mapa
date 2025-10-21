@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import './Timeline.css';
 
 function Timeline({
@@ -12,6 +12,11 @@ function Timeline({
   onLanguageChange
 }) {
   const [currentSelected, setCurrentSelected] = useState(selectedYear);
+
+  // Update local state when selectedYear prop changes
+  useEffect(() => {
+    setCurrentSelected(selectedYear);
+  }, [selectedYear]);
 
   const handleYearClick = (year) => {
     setCurrentSelected(year);

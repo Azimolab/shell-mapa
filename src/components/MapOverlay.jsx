@@ -1,7 +1,19 @@
 import { useState } from 'react';
 import './MapOverlay.css';
+import RioPopOver from './rio/RioPopOver';
+import MacaePopover from './rio/MacaePopover';
+import SPPopover from './rio/SPPopover';
 
 function MapOverlay({ selectedZone = 'rio', activeLegendItems = {} }) {
+  const [isRioPopoverOpen, setIsRioPopoverOpen] = useState(false);
+  const [isMacaePopoverOpen, setIsMacaePopoverOpen] = useState(false);
+  const [isSPPopoverOpen, setIsSPPopoverOpen] = useState(false);
+
+  // Only render when zone is 'rio'
+  if (selectedZone !== 'rio') {
+    return null;
+  }
+
   // Pin data for different zones - positions are percentages of the map container
   const mapData = {
     rio: {
@@ -94,37 +106,52 @@ function MapOverlay({ selectedZone = 'rio', activeLegendItems = {} }) {
     );
   };
 
-  const LocationPin = ({ location }) => (
-    <div 
-      className={`location-pin ${location.type}`}
-      style={{ 
-        left: `${location.x}%`, 
-        top: `${location.y}%`,
-        transform: 'translate(-50%, -100%)'
-      }}
-    >
-      <div className="location-content">
-        <div className="location-icon">
-          {location.type === 'headquarter' ? (
-            <svg width="36" height="36" viewBox="0 0 36 36" fill="none">
-              <path d="M33.5634 11.7659C31.7296 3.65268 24.6913 0 18.5087 0C18.5087 0 18.5087 0 18.4913 0C12.3262 0 5.27039 3.63512 3.43658 11.7483C1.3932 20.8098 6.91208 28.4839 11.907 33.3132C13.7583 35.1044 16.1335 36 18.5087 36C20.8839 36 23.2592 35.1044 25.093 33.3132C30.0879 28.4839 35.6068 20.8273 33.5634 11.7659ZM18.5087 20.5639C15.4699 20.5639 13.0073 18.0878 13.0073 15.0322C13.0073 11.9766 15.4699 9.50049 18.5087 9.50049C21.5476 9.50049 24.0102 11.9766 24.0102 15.0322C24.0102 18.0878 21.5476 20.5639 18.5087 20.5639Z" fill="#343434"/>
-            </svg>
-          ) : (
-            <svg width="36" height="36" viewBox="0 0 36 36" fill="none">
-              <path d="M17.9996 31.7887C16.1266 31.7887 14.5333 31.1319 13.2198 29.8184C11.9063 28.5049 11.2496 26.9117 11.2496 25.0387C11.2496 23.1657 11.9063 21.5724 13.2198 20.2589C14.5333 18.9454 16.1266 18.2887 17.9996 18.2887C19.8726 18.2887 21.4658 18.9454 22.7793 20.2589C24.0928 21.5724 24.7496 23.1657 24.7496 25.0387C24.7496 26.9117 24.0928 28.5049 22.7793 29.8184C21.4658 31.1319 19.8726 31.7887 17.9996 31.7887ZM10.5285 17.677L4.0957 11.2158C5.98995 9.44654 8.13233 8.08691 10.5228 7.13691C12.9131 6.18691 15.4053 5.71191 17.9996 5.71191C20.5938 5.71191 23.0861 6.18691 25.4763 7.13691C27.8668 8.08691 30.0092 9.44654 31.9035 11.2158L25.4707 17.677C24.4362 16.729 23.2815 15.9978 22.0065 15.4833C20.7315 14.969 19.3958 14.7119 17.9996 14.7119C16.6033 14.7119 15.2677 14.969 13.9927 15.4833C12.7177 15.9978 11.563 16.729 10.5285 17.677Z" fill="#343434"/>
-            </svg>
-          )}
+  const LocationPin = ({ location }) => {
+    const handleLocationClick = () => {
+      if (location.name === 'Rio de Janeiro') {
+        setIsRioPopoverOpen(true);
+      } else if (location.name === 'Macaé') {
+        setIsMacaePopoverOpen(true);
+      } else if (location.name === 'São Paulo') {
+        setIsSPPopoverOpen(true);
+      }
+    };
+
+    const isClickable = location.name === 'Rio de Janeiro' || location.name === 'Macaé' || location.name === 'São Paulo';
+
+    return (
+      <div
+        className={`location-pin ${location.type} ${isClickable ? 'clickable' : ''}`}
+        style={{
+          left: `${location.x}%`,
+          top: `${location.y}%`,
+          transform: 'translate(-50%, -100%)'
+        }}
+        onClick={isClickable ? handleLocationClick : undefined}
+      >
+        <div className="location-content">
+          <div className="location-icon">
+            {location.type === 'headquarter' ? (
+              <svg width="36" height="36" viewBox="0 0 36 36" fill="none">
+                <path d="M33.5634 11.7659C31.7296 3.65268 24.6913 0 18.5087 0C18.5087 0 18.5087 0 18.4913 0C12.3262 0 5.27039 3.63512 3.43658 11.7483C1.3932 20.8098 6.91208 28.4839 11.907 33.3132C13.7583 35.1044 16.1335 36 18.5087 36C20.8839 36 23.2592 35.1044 25.093 33.3132C30.0879 28.4839 35.6068 20.8273 33.5634 11.7659ZM18.5087 20.5639C15.4699 20.5639 13.0073 18.0878 13.0073 15.0322C13.0073 11.9766 15.4699 9.50049 18.5087 9.50049C21.5476 9.50049 24.0102 11.9766 24.0102 15.0322C24.0102 18.0878 21.5476 20.5639 18.5087 20.5639Z" fill="#343434"/>
+              </svg>
+            ) : (
+              <svg width="36" height="36" viewBox="0 0 36 36" fill="none">
+                <path d="M17.9996 31.7887C16.1266 31.7887 14.5333 31.1319 13.2198 29.8184C11.9063 28.5049 11.2496 26.9117 11.2496 25.0387C11.2496 23.1657 11.9063 21.5724 13.2198 20.2589C14.5333 18.9454 16.1266 18.2887 17.9996 18.2887C19.8726 18.2887 21.4658 18.9454 22.7793 20.2589C24.0928 21.5724 24.7496 23.1657 24.7496 25.0387C24.7496 26.9117 24.0928 28.5049 22.7793 29.8184C21.4658 31.1319 19.8726 31.7887 17.9996 31.7887ZM10.5285 17.677L4.0957 11.2158C5.98995 9.44654 8.13233 8.08691 10.5228 7.13691C12.9131 6.18691 15.4053 5.71191 17.9996 5.71191C20.5938 5.71191 23.0861 6.18691 25.4763 7.13691C27.8668 8.08691 30.0092 9.44654 31.9035 11.2158L25.4707 17.677C24.4362 16.729 23.2815 15.9978 22.0065 15.4833C20.7315 14.969 19.3958 14.7119 17.9996 14.7119C16.6033 14.7119 15.2677 14.969 13.9927 15.4833C12.7177 15.9978 11.563 16.729 10.5285 17.677Z" fill="#343434"/>
+              </svg>
+            )}
+          </div>
+          <div className="location-text">
+            <div className="location-name">{location.name}</div>
+            {location.type === 'headquarter' && (
+              <div className="location-type">HEADQUARTER</div>
+            )}
+          </div>
         </div>
-        <div className="location-text">
-          <div className="location-name">{location.name}</div>
-          {location.type === 'headquarter' && (
-            <div className="location-type">HEADQUARTER</div>
-          )}
-        </div>
+        <div className="location-pointer"></div>
       </div>
-      <div className="location-pointer"></div>
-    </div>
-  );
+    );
+  };
 
   const PipelineComponent = ({ pipeline }) => (
     <svg 
@@ -225,6 +252,24 @@ function MapOverlay({ selectedZone = 'rio', activeLegendItems = {} }) {
       {currentData.gasLines?.map(gasLine => (
         <GasLineComponent key={gasLine.id} gasLine={gasLine} />
       ))}
+
+      {/* Rio PopOver */}
+      <RioPopOver
+        isOpen={isRioPopoverOpen}
+        onClose={() => setIsRioPopoverOpen(false)}
+      />
+
+      {/* Macae PopOver */}
+      <MacaePopover
+        isOpen={isMacaePopoverOpen}
+        onClose={() => setIsMacaePopoverOpen(false)}
+      />
+
+      {/* São Paulo PopOver */}
+      <SPPopover
+        isOpen={isSPPopoverOpen}
+        onClose={() => setIsSPPopoverOpen(false)}
+      />
     </div>
   );
 }
