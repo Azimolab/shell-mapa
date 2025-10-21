@@ -3,9 +3,15 @@ import './App.css';
 import Timeline from './components/Timeline';
 import Toolbar from './components/Toolbar';
 import ShellAllType from './components/ShellAllType';
+import MapOverlay from './components/MapOverlay';
 
 function App() {
   const [selectedZone, setSelectedZone] = useState('rio');
+  const [activeLegendItems, setActiveLegendItems] = useState({
+    exploration: true,
+    production: true,
+    decommissioning: true
+  });
 
   // Map zone names to their corresponding SVG file paths
   const zoneBackgrounds = {
@@ -38,6 +44,10 @@ function App() {
 
   const handleLegendToggle = (itemId) => {
     console.log('Legend item toggled:', itemId);
+    setActiveLegendItems(prev => ({
+      ...prev,
+      [itemId]: !prev[itemId]
+    }));
   };
 
   return (
@@ -54,6 +64,12 @@ function App() {
         backgroundRepeat: 'no-repeat'
       }}>
         {/* ShellAllType positioned top-left */}
+        {/* Map Overlay with pins and infrastructure */}
+        <MapOverlay
+          selectedZone={selectedZone}
+          activeLegendItems={activeLegendItems}
+        />
+
         <div style={{
           position: 'absolute',
           top: '30px',
@@ -75,6 +91,7 @@ function App() {
             selectedArea={selectedZone}
             onAreaSelect={handleAreaSelect}
             onLegendToggle={handleLegendToggle}
+            activeLegendItems={activeLegendItems}
           />
         </div>
 
