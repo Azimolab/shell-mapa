@@ -3,70 +3,18 @@ import './MapOverlay.css';
 import RioPopOver from './rio/RioPopOver';
 import MacaePopover from './rio/MacaePopover';
 import SPPopover from './rio/SPPopover';
+import mapData from '../data/mapData.json';
 
-function MapOverlay({ selectedZone = 'rio', activeLegendItems = {} }) {
+function MapOverlay({ selectedZone = 'rio', selectedYear = '2025', activeLegendItems = {} }) {
   const [isRioPopoverOpen, setIsRioPopoverOpen] = useState(false);
   const [isMacaePopoverOpen, setIsMacaePopoverOpen] = useState(false);
   const [isSPPopoverOpen, setIsSPPopoverOpen] = useState(false);
 
-  // Only render when zone is 'rio'
-  if (selectedZone !== 'rio') {
-    return null;
-  }
+  // Return null if no data available for the selected zone/year
+  const currentData = mapData[selectedYear]?.[selectedZone] || mapData['2025']?.rio || {};
 
-  // Pin data for different zones - positions are percentages of the map container
-  const mapData = {
-    rio: {
-      explorationPins: [
-        { id: 'exp1', x: 65, y: 45, number: null },
-        { id: 'exp2', x: 68, y: 52, number: null },
-        { id: 'exp3', x: 71, y: 48, number: null },
-        { id: 'exp4', x: 45, y: 65, number: null },
-        { id: 'exp5', x: 52, y: 58, number: null },
-        { id: 'exp6', x: 48, y: 72, number: 5 },
-        { id: 'exp7', x: 42, y: 75, number: 6 },
-        { id: 'exp8', x: 46, y: 80, number: 4 }
-      ],
-      productionPins: [
-        { id: 'prod1', x: 62, y: 85, number: null },
-        { id: 'prod2', x: 65, y: 82, number: null },
-        { id: 'prod3', x: 58, y: 78, number: null },
-        { id: 'prod4', x: 68, y: 79, number: null },
-        { id: 'prod5', x: 72, y: 82, number: null },
-        { id: 'prod6', x: 75, y: 75, number: null },
-        { id: 'prod7', x: 78, y: 78, number: null },
-        { id: 'prod8', x: 82, y: 72, number: null },
-        { id: 'prod9', x: 79, y: 68, number: null },
-        { id: 'prod10', x: 88, y: 65, number: null },
-        { id: 'prod11', x: 85, y: 58, number: null },
-        { id: 'prod12', x: 92, y: 45, number: null },
-        { id: 'prod13', x: 90, y: 42, number: null },
-        { id: 'prod14', x: 95, y: 48, number: null }
-      ],
-      decommissioningPins: [
-        { id: 'decomm1', x: 74, y: 38, number: null },
-        { id: 'decomm2', x: 76, y: 41, number: null }
-      ],
-      pipelines: [
-        { id: 'gas1', type: 'gas', points: [[88, 35], [85, 60], [75, 75], [65, 85]], label: 'BC10', labelPos: [88, 30] },
-        { id: 'oil1', type: 'oil', points: [[76, 50], [72, 65], [68, 75]], label: 'A1 - A2 - Abalone - BC10', labelPos: [76, 45] }
-      ],
-      locations: [
-        { id: 'rj', x: 52, y: 58, name: 'Rio de Janeiro', type: 'headquarter' },
-        { id: 'sp', x: 35, y: 72, name: 'São Paulo', type: 'office' },
-        { id: 'macae', x: 70, y: 42, name: 'Macaé', type: 'office' }
-      ],
-      gasLines: [
-        { id: 'gasline1', start: [45, 85], end: [75, 72], labels: ['Carioca (Lapa)'] },
-        { id: 'gasline2', start: [52, 68], end: [68, 78], labels: ['Uruguá - Mexilhão'] },
-        { id: 'gasline3', start: [38, 78], end: [85, 85], labels: ['Lula - Mexilhão (Rota 1)', 'Participação Shell: 25%'] },
-        { id: 'gasline4', start: [65, 65], end: [88, 65], labels: ['Rota 2 Tecab', 'Participação Shell: 25%'] },
-        { id: 'gasline5', start: [75, 80], end: [95, 82], labels: ['Sapinho - Lula'] }
-      ]
-    }
-  };
-
-  const currentData = mapData[selectedZone] || mapData.rio;
+  // Only show Rio popover when zone is 'rio'
+  const showRioPopovers = selectedZone === 'rio';
 
   const PinComponent = ({ pin, type, visible }) => {
     if (!visible) return null;
@@ -253,23 +201,25 @@ function MapOverlay({ selectedZone = 'rio', activeLegendItems = {} }) {
         <GasLineComponent key={gasLine.id} gasLine={gasLine} />
       ))}
 
-      {/* Rio PopOver */}
-      <RioPopOver
-        isOpen={isRioPopoverOpen}
-        onClose={() => setIsRioPopoverOpen(false)}
-      />
+      {/* Rio-specific PopOvers - only render for Rio zone */}
+      {showRioPopovers && (
+        <>
+          <RioPopOver
+            isOpen={isRioPopoverOpen}
+            onClose={() => setIsRioPopoverOpen(false)}
+          />
 
-      {/* Macae PopOver */}
-      <MacaePopover
-        isOpen={isMacaePopoverOpen}
-        onClose={() => setIsMacaePopoverOpen(false)}
-      />
+          <MacaePopover
+            isOpen={isMacaePopoverOpen}
+            onClose={() => setIsMacaePopoverOpen(false)}
+          />
 
-      {/* São Paulo PopOver */}
-      <SPPopover
-        isOpen={isSPPopoverOpen}
-        onClose={() => setIsSPPopoverOpen(false)}
-      />
+          <SPPopover
+            isOpen={isSPPopoverOpen}
+            onClose={() => setIsSPPopoverOpen(false)}
+          />
+        </>
+      )}
     </div>
   );
 }

@@ -97,6 +97,7 @@ function App() {
         {/* Map Overlay with pins and infrastructure */}
         <MapOverlay
           selectedZone={selectedZone}
+          selectedYear={selectedYear}
           activeLegendItems={activeLegendItems}
         />
 
