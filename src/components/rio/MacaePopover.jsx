@@ -23,7 +23,7 @@ function MacaePopover({ isOpen, onClose }) {
               <h1 className="macae-popover-title">Macaé</h1>
               <img 
                 className="macae-popover-image" 
-                src="https://api.builder.io/api/v1/image/assets/TEMP/363352e3ae251a65e68b7a7ba73dbbdabd0153f3?width=1670" 
+                src="/macae-popover-image.png" 
                 alt="Industrial facility in Macaé" 
               />
             </div>
@@ -34,7 +34,7 @@ function MacaePopover({ isOpen, onClose }) {
                 <div className="macae-popover-venture-item">
                   <img 
                     className="macae-popover-venture-logo" 
-                    src="https://api.builder.io/api/v1/image/assets/TEMP/db5e0821e931d2f29d7f2540a2fa4bb4e284ccda?width=192" 
+                    src="/macae-popover-venture-logo.png" 
                     alt="Arke Energia logo" 
                   />
                   <div className="macae-popover-venture-details">

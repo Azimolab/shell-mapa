@@ -23,7 +23,7 @@ function RioPopOver({ isOpen, onClose }) {
               <h1 className="rio-popover-title">Rio de Janeiro</h1>
               <img 
                 className="rio-popover-image" 
-                src="https://api.builder.io/api/v1/image/assets/TEMP/466a77355374b0ac0f093dcd3f01ec504411c8c3?width=1670" 
+                src="/rio-popover-image.png" 
                 alt="Industrial facility in Rio de Janeiro" 
               />
             </div>
@@ -33,7 +33,7 @@ function RioPopOver({ isOpen, onClose }) {
               <div className="rio-popover-venture-item">
                 <img 
                   className="rio-popover-venture-logo" 
-                  src="https://api.builder.io/api/v1/image/assets/TEMP/f33bd292f0e8714d11d385811b1536a230886f61?width=192" 
+                  src="/rio-popover-venture-logo.png" 
                   alt="Raízen logo" 
                 />
                 <div className="rio-popover-venture-details">

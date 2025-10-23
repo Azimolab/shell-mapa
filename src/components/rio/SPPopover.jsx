@@ -9,35 +9,35 @@ function SPPopover({ isOpen, onClose }) {
     {
       id: 'shell-trading',
       name: 'Shell Trading Brasil',
-      logo: 'https://api.builder.io/api/v1/image/assets/TEMP/8c46bc4925b5fb7fd97415781870078631e41ebc?width=192',
+      logo: '/shell-trading.png',
       business: 'Comércio de Petróleo Cru Doméstico',
       ownership: '100% Shell'
     },
     {
       id: 'sebg',
       name: 'Shell Energy Brasil Gás (SEBG)',
-      logo: 'https://api.builder.io/api/v1/image/assets/TEMP/a14130240c5ee08f313b11280fb0150e8bf9b5ca?width=192',
+      logo: '/sebg.png',
       business: 'Comércio de Gás e Líquidos',
       ownership: '100% Shell'
     },
     {
       id: 'seb',
       name: 'Shell Energy Brasil (SEB)',
-      logo: 'https://api.builder.io/api/v1/image/assets/TEMP/a14130240c5ee08f313b11280fb0150e8bf9b5ca?width=192',
+      logo: '/seb.png',
       business: 'Comércio de Energia Elétrica',
       ownership: '100% Shell'
     },
     {
       id: 'prime-energy',
       name: 'Prime Energy',
-      logo: 'https://api.builder.io/api/v1/image/assets/TEMP/129e52225b6972c76ddb04895f5fff4cabb3a426?width=192',
+      logo: '/prime-energy.png',
       business: 'Mercado de Energia',
       ownership: '100% Shell'
     },
     {
       id: 'carbonext',
       name: 'Carbonext',
-      logo: 'https://api.builder.io/api/v1/image/assets/TEMP/954ee8c0ff0da44aca242bde55e84b9c37aed9ef?width=192',
+      logo: '/carbonext.png',
       business: 'Soluções baseadas na Natureza',
       ownership: '100% Shell'
     }
@@ -47,7 +47,7 @@ function SPPopover({ isOpen, onClose }) {
     {
       id: 'raizen-jv',
       name: 'Raízen JV',
-      logo: 'https://api.builder.io/api/v1/image/assets/TEMP/af7ba2a5170c50cf4d0dc3f6cd8723d83772cece?width=192',
+      logo: '/raizen-jv.png',
       business: 'Biocombustíveis e Varejo',
       ownership: '44% Shell'
     }
