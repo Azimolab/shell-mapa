@@ -8,7 +8,6 @@ function SVGMap({ selectedYear = '2025', activeLegendItems }) {
   useEffect(() => {
     console.log('Carregando SVG para o ano:', selectedYear);
     
-    try {
       let svgText = getSVGByYear(selectedYear);
       
       if (!svgText) {
@@ -25,27 +24,13 @@ function SVGMap({ selectedYear = '2025', activeLegendItems }) {
             .replace(/\s*height="[^"]*"/gi, '');
           
           // Adiciona os novos atributos
-          return `<svg${newAttrs} width="100%" height="100%" preserveAspectRatio="none">`;
+          console.log('newAttrs:', newAttrs);
+          return `<svg ${newAttrs} preserveAspectRatio="xMidYMid meet">`;
         }
       );
       
       console.log('SVG carregado com sucesso, tamanho:', svgText.length);
       setSvgContent(svgText);
-    } catch (error) {
-      console.error('Erro ao carregar SVG:', error);
-      // SVG de fallback
-      setSvgContent(`
-        <svg width="100%" height="100%" viewBox="0 0 1920 1080" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-          <rect width="100%" height="100%" fill="#E8F4F8"/>
-          <text x="960" y="540" text-anchor="middle" font-size="32" fill="#003758">
-            Mapa ${selectedYear}
-          </text>
-          <text x="960" y="580" text-anchor="middle" font-size="16" fill="#616161">
-            Erro ao carregar: ${error.message}
-          </text>
-        </svg>
-      `);
-    }
   }, [selectedYear]);
 
   // Aplicar visibilidade dos pins baseado nos filtros da legenda
