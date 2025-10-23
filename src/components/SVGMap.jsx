@@ -1,0 +1,137 @@
+import React, { useState, useEffect } from 'react';
+import './SVGMap.css';
+import { getSVGByYear } from '../assets/mapas/index.js';
+
+function SVGMap({ selectedYear = '2025', activeLegendItems }) {
+  const [svgContent, setSvgContent] = useState('');
+
+  useEffect(() => {
+    console.log('Carregando SVG para o ano:', selectedYear);
+    
+    try {
+      let svgText = getSVGByYear(selectedYear);
+      
+      if (!svgText) {
+        throw new Error('SVG não encontrado');
+      }
+      
+      // Manipular o SVG para remover width/height fixos e adicionar preserveAspectRatio="none"  **REMOVE ATRIBUIÇÃO FIXA DE TAMANHO DO SVG
+      svgText = svgText.replace(
+        /<svg([^>]*)>/i,
+        (match, attributes) => {
+          // Remove width e height atributos fixos
+          let newAttrs = attributes
+            .replace(/\s*width="[^"]*"/gi, '')
+            .replace(/\s*height="[^"]*"/gi, '');
+          
+          // Adiciona os novos atributos
+          return `<svg${newAttrs} width="100%" height="100%" preserveAspectRatio="none">`;
+        }
+      );
+      
+      console.log('SVG carregado com sucesso, tamanho:', svgText.length);
+      setSvgContent(svgText);
+    } catch (error) {
+      console.error('Erro ao carregar SVG:', error);
+      // SVG de fallback
+      setSvgContent(`
+        <svg width="100%" height="100%" viewBox="0 0 1920 1080" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+          <rect width="100%" height="100%" fill="#E8F4F8"/>
+          <text x="960" y="540" text-anchor="middle" font-size="32" fill="#003758">
+            Mapa ${selectedYear}
+          </text>
+          <text x="960" y="580" text-anchor="middle" font-size="16" fill="#616161">
+            Erro ao carregar: ${error.message}
+          </text>
+        </svg>
+      `);
+    }
+  }, [selectedYear]);
+
+  // Aplicar visibilidade dos pins baseado nos filtros da legenda
+  useEffect(() => {
+    if (!svgContent) return;
+
+    // Pequeno delay para garantir que o DOM foi atualizado
+    setTimeout(() => {
+      // Red pins (exploration) - procurar por elementos com classes que contenham "Red", "red", "exploration", "Exploration"
+      const redPinSelectors = [
+        '[class*="RedPin"]',
+        '[class*="redPin"]', 
+        '[class*="red-pin"]',
+        '[class*="Exploration"]',
+        '[class*="exploration"]',
+        '[id*="red"]',
+        '[id*="Red"]',
+        '[id*="exploration"]',
+        '[id*="Exploration"]'
+      ];
+      
+      redPinSelectors.forEach(selector => {
+        const pins = document.querySelectorAll(selector);
+        pins.forEach(pin => {
+          if (pin.closest('svg') && pin.tagName !== 'svg') {
+            pin.style.display = activeLegendItems.exploration ? 'block' : 'none';
+          }
+        });
+      });
+
+      // Green pins (production) - procurar por elementos com classes que contenham "Green", "green", "production", "Production"
+      const greenPinSelectors = [
+        '[class*="GreenPin"]',
+        '[class*="greenPin"]',
+        '[class*="green-pin"]',
+        '[class*="Production"]',
+        '[class*="production"]',
+        '[id*="green"]',
+        '[id*="Green"]',
+        '[id*="production"]',
+        '[id*="Production"]'
+      ];
+      
+      greenPinSelectors.forEach(selector => {
+        const pins = document.querySelectorAll(selector);
+        pins.forEach(pin => {
+          if (pin.closest('svg') && pin.tagName !== 'svg') {
+            pin.style.display = activeLegendItems.production ? 'block' : 'none';
+          }
+        });
+      });
+
+      // Gray/decommissioning pins
+      const grayPinSelectors = [
+        '[class*="GrayPin"]',
+        '[class*="grayPin"]',
+        '[class*="gray-pin"]',
+        '[class*="DecommissionPin"]',
+        '[class*="Decommission"]',
+        '[class*="decommission"]',
+        '[id*="gray"]',
+        '[id*="Gray"]',
+        '[id*="decommission"]',
+        '[id*="Decommission"]'
+      ];
+      
+      grayPinSelectors.forEach(selector => {
+        const pins = document.querySelectorAll(selector);
+        pins.forEach(pin => {
+          if (pin.closest('svg') && pin.tagName !== 'svg') {
+            pin.style.display = activeLegendItems.decommissioning ? 'block' : 'none';
+          }
+        });
+      });
+    }, 100);
+  }, [svgContent, activeLegendItems]);
+
+  return (
+    <div className="svg-map-container">
+      <div 
+        className="svg-map-content"
+        dangerouslySetInnerHTML={{ __html: svgContent }}
+      />
+    </div>
+  );
+}
+
+export default SVGMap;
+

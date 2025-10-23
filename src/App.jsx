@@ -3,7 +3,8 @@ import './App.css';
 import Timeline from './components/Timeline';
 import Toolbar from './components/Toolbar';
 import ShellAllType from './components/ShellAllType';
-import MapOverlay from './components/MapOverlay';
+import SVGMap from './components/SVGMap';
+import PinInteractionManager from './components/PinInteractionManager';
 
 function App() {
   const [selectedZone, setSelectedZone] = useState('rio');
@@ -60,14 +61,6 @@ function App() {
     }
   }, [isPlaying, playSpeed, selectedZone]);
 
-  // Map zone names to their corresponding SVG file paths
-  const zoneBackgrounds = {
-    'barreirinhas': '/src/assets/map_sources/barreirinhas.svg',
-    'potiguar': '/src/assets/map_sources/potiguar.svg',
-    'rio': '/src/assets/map_sources/rio.svg',
-    'pelotas': '/src/assets/map_sources/pelotas.svg'
-  };
-
   // Function to check if a zone is available based on year
   const isZoneAvailable = (zone, year) => {
     const numericYear = year === 'PRÉ 2013' ? 2012 : parseInt(year);
@@ -78,7 +71,7 @@ function App() {
       case 'potiguar':
         return numericYear >= 2018;
       case 'pelotas':
-        return numericYear >= 2024;
+        return numericYear >= 2023;
       case 'rio':
         return true; // Always available
       default:
@@ -139,29 +132,21 @@ function App() {
         position: 'relative',
         width: '100vw',
         height: '100vh',
-        padding: '20px',
         overflow: 'hidden',
-        backgroundImage: `url(${zoneBackgrounds[selectedZone]})`,
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-        backgroundRepeat: 'no-repeat'
+        backgroundColor: '#E8F4F8'
       }}>
-        {/* ShellAllType positioned top-left */}
-        {/* Map Overlay with pins and infrastructure */}
-        <MapOverlay
-          selectedZone={selectedZone}
+        {/* SVG Map - ocupa toda a tela */}
+        <SVGMap
           selectedYear={selectedYear}
           activeLegendItems={activeLegendItems}
         />
 
-        <div style={{
-          position: 'absolute',
-          top: '30px',
-          left: '30px',
-          zIndex: 10
-        }}>
-          <ShellAllType />
-        </div>
+        {/* Gerenciador de interações com pins do SVG */}
+        <PinInteractionManager
+          selectedZone={selectedZone}
+          selectedYear={selectedYear}
+        />
+
 
         {/* Toolbar positioned middle-right */}
         <div style={{

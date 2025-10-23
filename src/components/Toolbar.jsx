@@ -23,9 +23,23 @@ function Toolbar({
   const areas = [
     { id: 'barreirinhas', label: 'Barreirinhas' },
     { id: 'potiguar', label: 'Potiguar' },
-    { id: 'rio', label: 'Rio' },
+    { id: 'rio', label: 'Rio de Janeiro' },
     { id: 'pelotas', label: 'Pelotas' }
   ];
+
+  // Filtrar apenas áreas disponíveis para o ano selecionado
+  const availableAreas = areas.filter(area => isZoneAvailable(area.id, selectedYear));
+
+  // Ajustar o label do Rio baseado na quantidade de áreas disponíveis
+  const areasWithAdjustedLabels = availableAreas.map(area => {
+    if (area.id === 'rio') {
+      return {
+        ...area,
+        label: availableAreas.length >= 4 ? 'Rio' : 'Rio de Janeiro'
+      };
+    }
+    return area;
+  });
 
   const handleAreaClick = (areaId) => {
     // Only allow click if zone is available
@@ -46,19 +60,14 @@ function Toolbar({
         <div className="toolbar-header">
           <h2 className="toolbar-title">Clique para alterar a área visualizada</h2>
           <div className="toolbar-area-tags">
-            {areas.map((area) => {
-              const isAvailable = isZoneAvailable(area.id, selectedYear);
+            {areasWithAdjustedLabels.map((area) => {
               const isActive = area.id === currentArea;
 
               return (
                 <button
                   key={area.id}
-                  className={`toolbar-area-tag ${
-                    isActive ? 'active' :
-                    isAvailable ? 'inactive' : 'disabled'
-                  }`}
+                  className={`toolbar-area-tag ${isActive ? 'active' : 'inactive'}`}
                   onClick={() => handleAreaClick(area.id)}
-                  disabled={!isAvailable}
                 >
                   {area.label}
                 </button>
@@ -96,7 +105,7 @@ function Toolbar({
         <div className="toolbar-legend-section">
           <h3 className="toolbar-section-title">Blocos Marítimos</h3>
           <div className="toolbar-legend-items">
-            <div className="toolbar-legend-item">
+            <div className={`toolbar-legend-item ${!activeLegendItems.exploration ? 'hidden' : ''}`}>
               <div className="toolbar-legend-item-content">
                 <div className="toolbar-legend-icon exploration">
                   <svg width="18" height="18" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -112,7 +121,7 @@ function Toolbar({
               </button>
             </div>
 
-            <div className="toolbar-legend-item">
+            <div className={`toolbar-legend-item ${!activeLegendItems.production ? 'hidden' : ''}`}>
               <div className="toolbar-legend-item-content">
                 <div className="toolbar-legend-icon production">
                   <svg width="18" height="18" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -128,7 +137,7 @@ function Toolbar({
               </button>
             </div>
 
-            <div className="toolbar-legend-item">
+            <div className={`toolbar-legend-item ${!activeLegendItems.decommissioning ? 'hidden' : ''}`}>
               <div className="toolbar-legend-item-content">
                 <div className="toolbar-legend-icon decommissioning">
                   <svg width="18" height="18" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">

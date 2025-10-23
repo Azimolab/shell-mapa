@@ -1,0 +1,159 @@
+{
+  "locations": {
+    "sp": {
+      "id": "sp",
+      "name": "São Paulo",
+      "type": "filial",
+      "description": "Filial Shell em São Paulo",
+      "subsidiaries": [
+        {
+          "name": "Shell Trading Brasil",
+          "business": "Comércio de Petróleo Cru Doméstico",
+          "ownership": "100% Shell"
+        },
+        {
+          "name": "Shell Energy Brasil Gás (SEBG)",
+          "business": "Comércio de Gás e Líquidos",
+          "ownership": "100% Shell"
+        },
+        {
+          "name": "Shell Energy Brasil (SEB)",
+          "business": "Comércio de Energia Elétrica",
+          "ownership": "100% Shell"
+        },
+        {
+          "name": "Prime Energy",
+          "business": "Mercado de Energia",
+          "ownership": "100% Shell"
+        },
+        {
+          "name": "Carbonext",
+          "business": "Soluções baseadas na Natureza",
+          "ownership": "100% Shell"
+        }
+      ],
+      "jointVentures": [
+        {
+          "name": "Raízen JV",
+          "business": "Biocombustíveis e Varejo",
+          "ownership": "44% Shell"
+        }
+      ]
+    },
+    "rio": {
+      "id": "rio",
+      "name": "Rio de Janeiro",
+      "type": "headquarter",
+      "description": "Sede da Shell no Brasil"
+    },
+    "macae": {
+      "id": "macae",
+      "name": "Macaé",
+      "type": "office",
+      "description": "Escritório Shell em Macaé"
+    }
+  },
+  "explorationBlocks": {
+    "2025": {
+      "rio": [
+        {
+          "id": "exp1",
+          "name": "Bloco de Exploração 1",
+          "operator": "Shell",
+          "participation": "100%",
+          "depth": "2000m",
+          "status": "Em exploração"
+        },
+        {
+          "id": "exp2",
+          "name": "Bloco de Exploração 2",
+          "operator": "Shell",
+          "participation": "50%",
+          "depth": "2500m",
+          "status": "Em exploração"
+        }
+      ],
+      "barreirinhas": [
+        {
+          "id": "barr_exp1",
+          "name": "Barreirinhas - Grupo 1",
+          "operator": "Shell",
+          "participation": "100%",
+          "blocks": 2,
+          "status": "Em exploração"
+        },
+        {
+          "id": "barr_exp2",
+          "name": "Barreirinhas - Grupo 2",
+          "operator": "Shell",
+          "participation": "100%",
+          "blocks": 4,
+          "status": "Em exploração"
+        }
+      ],
+      "potiguar": [
+        {
+          "id": "pot_exp1",
+          "name": "Potiguar - Bloco 1",
+          "operator": "Shell",
+          "participation": "100%",
+          "blocks": 1,
+          "status": "Em exploração"
+        }
+      ],
+      "pelotas": [
+        {
+          "id": "pel_exp1",
+          "name": "Pelotas - Grupo 1",
+          "operator": "Shell",
+          "participation": "100%",
+          "blocks": 26,
+          "status": "Em exploração"
+        }
+      ]
+    }
+  },
+  "productionBlocks": {
+    "2025": {
+      "rio": [
+        {
+          "id": "prod1",
+          "name": "Campo de Produção 1",
+          "operator": "Petrobras",
+          "participation": "25%",
+          "production": "50.000 bpd",
+          "depth": "2000m",
+          "status": "Em produção"
+        },
+        {
+          "id": "prod2",
+          "name": "Campo de Produção 2",
+          "operator": "Shell",
+          "participation": "100%",
+          "production": "30.000 bpd",
+          "depth": "1800m",
+          "status": "Em produção"
+        }
+      ]
+    }
+  },
+  "infrastructure": {
+    "pipelines": [
+      {
+        "id": "pipe1",
+        "name": "Gasoduto Lula-Mexilhão",
+        "type": "gas",
+        "participation": "25% Shell",
+        "length": "355 km"
+      },
+      {
+        "id": "pipe2",
+        "name": "Oleoduto BC-10",
+        "type": "oil",
+        "participation": "50% Shell",
+        "length": "180 km"
+      }
+    ]
+  }
+}
+

@@ -2205,6 +2205,27 @@
           "y": 42
         }
       ]
+    },
+    "pelotas": {
+      "decommissioningPins": [],
+      "explorationPins": [
+        {
+          "id": "pel_exp1",
+          "number": 26,
+          "x": 60,
+          "y": 55
+        },
+        {
+          "id": "pel_exp2",
+          "number": 3,
+          "x": 55,
+          "y": 65
+        }
+      ],
+      "gasLines": [],
+      "locations": [],
+      "pipelines": [],
+      "productionPins": []
     }
   },
   "2024": {

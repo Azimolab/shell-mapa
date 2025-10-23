@@ -23,12 +23,12 @@
 }
 
 .map-pin.clickable:hover {
-  transform: translate(-50%, -100%) scale(1.1);
-  transition: transform 0.2s ease;
+  opacity: 0.8;
+  transition: opacity 0.2s ease;
 }
 
 .map-pin:hover {
-  transform: translate(-50%, -100%) scale(1.1);
+  opacity: 0.8;
 }
 
 .pin-body {
@@ -108,11 +108,11 @@
 }
 
 .location-pin:hover {
-  transform: translate(-50%, -100%) scale(1.05);
+  opacity: 0.9;
 }
 
 .location-pin.clickable:hover {
-  transform: translate(-50%, -100%) scale(1.1);
+  opacity: 0.85;
 }
 
 .location-pin.clickable .location-content:hover {
