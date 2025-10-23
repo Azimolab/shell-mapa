@@ -3,7 +3,7 @@
 
 // Nota: Vite processa ?raw para importar o conteúdo como string
 import Pre2013 from './Pre2013.svg?raw';
-import svg2013 from './2013 (1).svg?raw';
+import svg2013 from './2013.svg?raw';
 import svg2016 from './2016.svg?raw';
 import svg2017 from './2017.svg?raw';
 import svg2018 from './2018.svg?raw';
@@ -13,7 +13,7 @@ import svg2021 from './2021.svg?raw';
 import svg2022 from './2022.svg?raw';
 import svg2023 from './2023.svg?raw';
 import svg2024 from './2024.svg?raw';
-import svg2025 from './2025vf2.svg?raw';
+import svg2025 from './2025.svg?raw';
 
 // Exportar mapeamento de anos para conteúdo SVG
 export const svgFiles = {
