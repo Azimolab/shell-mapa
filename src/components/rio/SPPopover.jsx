@@ -1,3 +1,5 @@
+import React from 'react';
+import { createPortal } from 'react-dom';
 import './SPPopover.css';
 
 function SPPopover({ isOpen, onClose }) {
@@ -51,7 +53,7 @@ function SPPopover({ isOpen, onClose }) {
     }
   ];
 
-  return (
+  return createPortal(
     <div className="sp-popover-overlay" onClick={onClose}>
       <div className="sp-popover-container" onClick={(e) => e.stopPropagation()}>
         <div className="sp-popover-arrow" />
@@ -148,7 +150,8 @@ function SPPopover({ isOpen, onClose }) {
           </div>
         </div>
       </div>
-    </div>
+    </div>,
+    document.body
   );
 }
 

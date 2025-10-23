@@ -1,3 +1,5 @@
+import React from 'react';
+import { createPortal } from 'react-dom';
 import './exploration_2.css';
 
 function exploration_2({ isOpen, onClose }) {
@@ -20,7 +22,7 @@ function exploration_2({ isOpen, onClose }) {
     }
   ];
 
-  return (
+  return createPortal(
     <div className="exploration_2-overlay" onClick={onClose}>
       <div className="exploration_2-container" onClick={(e) => e.stopPropagation()}>
         <div className="exploration_2-arrow" />
@@ -109,7 +111,8 @@ function exploration_2({ isOpen, onClose }) {
           </div>
         </div>
       </div>
-    </div>
+    </div>,
+    document.body
   );
 }
 

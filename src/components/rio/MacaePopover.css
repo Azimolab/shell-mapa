@@ -18,20 +18,18 @@
   position: relative;
   max-width: 475px;
   width: 100%;
-  max-height: 90vh;
-  overflow-y: auto;
 }
 
 .macae-popover-arrow {
   position: absolute;
-  top: -10px;
+  bottom: -19px;
   left: 50%;
   transform: translateX(-50%);
   width: 0;
   height: 0;
   border-left: 14px solid transparent;
   border-right: 14px solid transparent;
-  border-bottom: 20px solid #FFF;
+  border-top: 20px solid #FFF;
   z-index: 1001;
 }
 
@@ -40,7 +38,6 @@
   border-radius: 16px;
   border: 1px solid #E0E0E0;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
-  margin-top: 17px;
 }
 
 .macae-popover-content {

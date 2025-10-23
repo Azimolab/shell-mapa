@@ -1,3 +1,5 @@
+import React from 'react';
+import { createPortal } from 'react-dom';
 import './production_2.css';
 
 function production_2({ isOpen, onClose }) {
@@ -27,7 +29,7 @@ function production_2({ isOpen, onClose }) {
     }
   ];
 
-  return (
+  return createPortal(
     <div className="production_2-overlay" onClick={onClose}>
       <div className="production_2-container" onClick={(e) => e.stopPropagation()}>
         <div className="production_2-arrow" />
@@ -139,7 +141,8 @@ function production_2({ isOpen, onClose }) {
           </div>
         </div>
       </div>
-    </div>
+    </div>,
+    document.body
   );
 }
 

@@ -3,6 +3,11 @@ import './MapOverlay.css';
 import RioPopOver from './rio/RioPopOver';
 import MacaePopover from './rio/MacaePopover';
 import SPPopover from './rio/SPPopover';
+import RioExploration1 from './rio/exploration_1';
+import RioExploration2 from './rio/exploration_2';
+import RioExploration3 from './rio/exploration_3';
+import RioProduction1 from './rio/production_1';
+import RioProduction2 from './rio/production_2';
 import PelotasExploration1 from './pelotas/exploration_1';
 import PelotasExploration2 from './pelotas/exploration_2';
 import PotiguarExploration1 from './potiguar/exploration_1';
@@ -16,6 +21,11 @@ function MapOverlay({ selectedZone = 'rio', selectedYear = '2025', activeLegendI
   const [isRioPopoverOpen, setIsRioPopoverOpen] = useState(false);
   const [isMacaePopoverOpen, setIsMacaePopoverOpen] = useState(false);
   const [isSPPopoverOpen, setIsSPPopoverOpen] = useState(false);
+  const [isRioExploration1Open, setIsRioExploration1Open] = useState(false);
+  const [isRioExploration2Open, setIsRioExploration2Open] = useState(false);
+  const [isRioExploration3Open, setIsRioExploration3Open] = useState(false);
+  const [isRioProduction1Open, setIsRioProduction1Open] = useState(false);
+  const [isRioProduction2Open, setIsRioProduction2Open] = useState(false);
   const [isPelotasExploration1Open, setIsPelotasExploration1Open] = useState(false);
   const [isPelotasExploration2Open, setIsPelotasExploration2Open] = useState(false);
   const [isPotiguarExploration1Open, setIsPotiguarExploration1Open] = useState(false);
@@ -37,7 +47,24 @@ function MapOverlay({ selectedZone = 'rio', selectedYear = '2025', activeLegendI
   const showBarreirinhasPopovers = selectedZone === 'barreirinhas';
 
   const handlePinClick = (pin, type) => {
-    if (selectedZone === 'pelotas' && type === 'exploration') {
+    if (selectedZone === 'rio') {
+      console.log('Rio pin clicked:', pin.id, type);
+      if (type === 'exploration') {
+        if (pin.id === 'exp1') {
+          setIsRioExploration1Open(true);
+        } else if (pin.id === 'exp2') {
+          setIsRioExploration2Open(true);
+        } else if (pin.id === 'exp3') {
+          setIsRioExploration3Open(true);
+        }
+      } else if (type === 'production') {
+        if (pin.id === 'prod1') {
+          setIsRioProduction1Open(true);
+        } else if (pin.id === 'prod2') {
+          setIsRioProduction2Open(true);
+        }
+      }
+    } else if (selectedZone === 'pelotas' && type === 'exploration') {
       console.log('Pelotas pin clicked:', pin.id, pin.number);
       // For Pelotas exploration pins, open specific exploration component based on pin id
       if (pin.id === 'pel_exp1') {
@@ -69,7 +96,9 @@ function MapOverlay({ selectedZone = 'rio', selectedYear = '2025', activeLegendI
   const PinComponent = ({ pin, type, visible }) => {
     if (!visible) return null;
 
-    const isClickable = (selectedZone === 'pelotas' || selectedZone === 'potiguar' || selectedZone === 'barreirinhas') && type === 'exploration';
+    const isClickable = 
+      (selectedZone === 'rio' && (type === 'exploration' || type === 'production')) ||
+      ((selectedZone === 'pelotas' || selectedZone === 'potiguar' || selectedZone === 'barreirinhas') && type === 'exploration');
 
     return (
       <div
@@ -270,6 +299,31 @@ function MapOverlay({ selectedZone = 'rio', selectedYear = '2025', activeLegendI
           <SPPopover
             isOpen={isSPPopoverOpen}
             onClose={() => setIsSPPopoverOpen(false)}
+          />
+
+          <RioExploration1
+            isOpen={isRioExploration1Open}
+            onClose={() => setIsRioExploration1Open(false)}
+          />
+
+          <RioExploration2
+            isOpen={isRioExploration2Open}
+            onClose={() => setIsRioExploration2Open(false)}
+          />
+
+          <RioExploration3
+            isOpen={isRioExploration3Open}
+            onClose={() => setIsRioExploration3Open(false)}
+          />
+
+          <RioProduction1
+            isOpen={isRioProduction1Open}
+            onClose={() => setIsRioProduction1Open(false)}
+          />
+
+          <RioProduction2
+            isOpen={isRioProduction2Open}
+            onClose={() => setIsRioProduction2Open(false)}
           />
         </>
       )}

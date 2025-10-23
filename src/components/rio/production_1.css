@@ -16,75 +16,81 @@
 
 .production_1-container {
   position: relative;
-  max-width: 969px;
+  max-width: 650px;
   width: 100%;
-  max-height: 90vh;
-  overflow-y: auto;
 }
 
 .production_1-arrow {
   position: absolute;
-  top: -10px;
+  bottom: -13px;
   left: 50%;
   transform: translateX(-50%);
   width: 0;
   height: 0;
-  border-left: 14px solid transparent;
-  border-right: 14px solid transparent;
-  border-bottom: 20px solid #FFF;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-top: 14px solid #FFF;
   z-index: 1001;
 }
 
 .production_1-card {
   background: #FFF;
-  border-radius: 16px;
+  border-radius: 12px;
   border: 1px solid #E0E0E0;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
-  margin-top: 17px;
+  max-height: 75vh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
 }
 
 .production_1-content {
-  padding: 36px 58px;
+  padding: 24px 32px;
   display: flex;
   flex-direction: column;
-  gap: 32px;
+  gap: 20px;
 }
 
 .production_1-header {
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  gap: 12px;
 }
 
 .production_1-status-section {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 12px;
 }
 
 .production_1-status-badge {
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: 12px;
 }
 
 .production_1-status-icon {
   display: flex;
-  width: 68px;
-  height: 68px;
-  padding: 16px;
+  width: 48px;
+  height: 48px;
+  padding: 10px;
   justify-content: center;
   align-items: center;
-  border-radius: 16px;
+  border-radius: 12px;
   background: #008557;
   flex-shrink: 0;
   box-sizing: border-box;
 }
 
+.production_1-status-icon svg {
+  width: 28px;
+  height: 28px;
+}
+
 .production_1-status-text {
   color: #343434;
   font-family: 'ShellBook', -apple-system, Roboto, Helvetica, sans-serif;
-  font-size: 26px;
+  font-size: 16px;
   font-weight: 400;
   line-height: normal;
 }
@@ -92,7 +98,7 @@
 .production_1-title {
   color: #343434;
   font-family: 'ShellBold', -apple-system, Roboto, Helvetica, sans-serif;
-  font-size: 48px;
+  font-size: 28px;
   font-weight: 700;
   line-height: normal;
   margin: 0;
@@ -100,38 +106,43 @@
 
 .production_1-info-grid {
   display: flex;
-  gap: 16px;
+  gap: 12px;
   align-items: flex-start;
 }
 
 .production_1-info-item {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 12px;
   flex: 1;
 }
 
 .production_1-info-label {
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: 12px;
 }
 
 .production_1-info-icon {
   display: flex;
-  padding: 12px;
+  padding: 8px;
   align-items: center;
   justify-content: center;
-  border-radius: 16px;
+  border-radius: 12px;
   border: 2px solid #E0E0E0;
   background: transparent;
   flex-shrink: 0;
 }
 
+.production_1-info-icon svg {
+  width: 24px;
+  height: 24px;
+}
+
 .production_1-info-label-text {
   color: #343434;
   font-family: 'ShellBook', -apple-system, Roboto, Helvetica, sans-serif;
-  font-size: 26px;
+  font-size: 16px;
   font-weight: 400;
   line-height: normal;
 }
@@ -145,7 +156,7 @@
 .production_1-info-value {
   color: #343434;
   font-family: 'ShellBold', -apple-system, Roboto, Helvetica, sans-serif;
-  font-size: 26px;
+  font-size: 16px;
   font-weight: 700;
   line-height: normal;
 }
@@ -153,7 +164,7 @@
 .production_1-info-description {
   color: #616161;
   font-family: 'ShellBook', -apple-system, Roboto, Helvetica, sans-serif;
-  font-size: 22px;
+  font-size: 14px;
   font-weight: 400;
   line-height: normal;
 }
@@ -169,13 +180,13 @@
 .production_1-participation {
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  gap: 12px;
 }
 
 .production_1-participation-title {
   color: #616161;
   font-family: 'ShellMedium', -apple-system, Roboto, Helvetica, sans-serif;
-  font-size: 26px;
+  font-size: 16px;
   font-weight: 500;
   line-height: normal;
   margin: 0;
@@ -184,26 +195,26 @@
 .production_1-companies {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 12px;
 }
 
 .production_1-company {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 12px;
 }
 
 .production_1-company-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 16px;
+  gap: 12px;
 }
 
 .production_1-company-name {
   color: #343434;
   font-family: 'ShellBook', -apple-system, Roboto, Helvetica, sans-serif;
-  font-size: 26px;
+  font-size: 16px;
   font-weight: 400;
   line-height: normal;
   flex: 1;
@@ -217,7 +228,7 @@
 .production_1-company-percentage {
   color: #343434;
   font-family: 'ShellMedium', -apple-system, Roboto, Helvetica, sans-serif;
-  font-size: 26px;
+  font-size: 16px;
   font-weight: 500;
   line-height: normal;
   text-align: right;
@@ -225,29 +236,29 @@
 
 .production_1-progress-bar {
   width: 100%;
-  height: 16px;
+  height: 12px;
   background: #E0E0E0;
-  border-radius: 8px;
+  border-radius: 6px;
   overflow: hidden;
   position: relative;
 }
 
 .production_1-progress-fill {
   height: 100%;
-  border-radius: 8px;
+  border-radius: 6px;
   transition: width 0.3s ease;
 }
 
 .production_1-infrastructure {
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  gap: 12px;
 }
 
 .production_1-infrastructure-title {
   color: #616161;
   font-family: 'ShellMedium', -apple-system, Roboto, Helvetica, sans-serif;
-  font-size: 26px;
+  font-size: 16px;
   font-weight: 500;
   line-height: normal;
   margin: 0;
@@ -256,7 +267,7 @@
 .production_1-infrastructure-content {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 12px;
 }
 
 .production_1-fpso-info {
@@ -268,7 +279,7 @@
 .production_1-fpso-title {
   color: #343434;
   font-family: 'ShellBold', -apple-system, Roboto, Helvetica, sans-serif;
-  font-size: 26px;
+  font-size: 16px;
   font-weight: 700;
   line-height: normal;
 }
@@ -276,7 +287,7 @@
 .production_1-fpso-description {
   color: #616161;
   font-family: 'ShellBook', -apple-system, Roboto, Helvetica, sans-serif;
-  font-size: 22px;
+  font-size: 14px;
   font-weight: 400;
   line-height: normal;
 }
@@ -284,15 +295,15 @@
 .production_1-bullet-item {
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: 12px;
 }
 
 .production_1-bullet-number {
   display: flex;
-  padding: 12px;
+  padding: 8px;
   align-items: center;
   justify-content: center;
-  border-radius: 16px;
+  border-radius: 12px;
   border: 2px solid #E0E0E0;
   background: transparent;
   width: 60px;
@@ -304,7 +315,7 @@
 .production_1-bullet-number span {
   color: #343434;
   font-family: 'ShellBook', -apple-system, Roboto, Helvetica, sans-serif;
-  font-size: 26px;
+  font-size: 16px;
   font-weight: 400;
   line-height: normal;
 }
@@ -312,7 +323,7 @@
 .production_1-bullet-text {
   color: #343434;
   font-family: 'ShellBook', -apple-system, Roboto, Helvetica, sans-serif;
-  font-size: 26px;
+  font-size: 16px;
   font-weight: 400;
   line-height: normal;
 }
@@ -320,7 +331,7 @@
 .production_1-close-button {
   display: flex;
   width: 100%;
-  padding: 24px;
+  padding: 14px;
   justify-content: center;
   align-items: center;
   border-radius: 12px;
@@ -330,7 +341,7 @@
   transition: all 0.2s ease;
   color: #343434;
   font-family: 'ShellBold', -apple-system, Roboto, Helvetica, sans-serif;
-  font-size: 36px;
+  font-size: 18px;
   font-weight: 700;
   line-height: normal;
 }
@@ -352,11 +363,11 @@
   
   .production_1-content {
     padding: 24px 30px;
-    gap: 24px;
+    gap: 12px;
   }
   
   .production_1-title {
-    font-size: 36px;
+    font-size: 18px;
   }
   
   .production_1-status-text,
@@ -388,7 +399,7 @@
   .production_1-status-icon {
     width: 56px;
     height: 56px;
-    padding: 12px;
+    padding: 8px;
   }
   
   .production_1-status-icon svg {
@@ -453,7 +464,7 @@
   
   .production_1-close-button {
     font-size: 24px;
-    padding: 16px;
+    padding: 10px;
   }
   
   .production_1-status-badge {
@@ -501,7 +512,7 @@
 
 @media (max-width: 360px) {
   .production_1-content {
-    padding: 16px;
+    padding: 10px;
   }
   
   .production_1-title {

@@ -1,9 +1,11 @@
+import React from 'react';
+import { createPortal } from 'react-dom';
 import './RioPopOver.css';
 
 function RioPopOver({ isOpen, onClose }) {
   if (!isOpen) return null;
 
-  return (
+  return createPortal(
     <div className="rio-popover-overlay" onClick={onClose}>
       <div className="rio-popover-container" onClick={(e) => e.stopPropagation()}>
         <div className="rio-popover-arrow" />
@@ -61,7 +63,8 @@ function RioPopOver({ isOpen, onClose }) {
           </div>
         </div>
       </div>
-    </div>
+    </div>,
+    document.body
   );
 }
 

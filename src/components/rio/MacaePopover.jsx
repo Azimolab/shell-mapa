@@ -1,9 +1,11 @@
+import React from 'react';
+import { createPortal } from 'react-dom';
 import './MacaePopover.css';
 
 function MacaePopover({ isOpen, onClose }) {
   if (!isOpen) return null;
 
-  return (
+  return createPortal(
     <div className="macae-popover-overlay" onClick={onClose}>
       <div className="macae-popover-container" onClick={(e) => e.stopPropagation()}>
         <div className="macae-popover-arrow" />
@@ -66,7 +68,8 @@ function MacaePopover({ isOpen, onClose }) {
           </div>
         </div>
       </div>
-    </div>
+    </div>,
+    document.body
   );
 }
 
