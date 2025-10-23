@@ -1,3 +1,4 @@
+import React from 'react';
 import './exploration_1.css';
 
 function exploration_1({ isOpen, onClose }) {

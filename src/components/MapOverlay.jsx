@@ -1,32 +1,85 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import './MapOverlay.css';
 import RioPopOver from './rio/RioPopOver';
 import MacaePopover from './rio/MacaePopover';
 import SPPopover from './rio/SPPopover';
+import PelotasExploration1 from './pelotas/exploration_1';
+import PelotasExploration2 from './pelotas/exploration_2';
+import PotiguarExploration1 from './potiguar/exploration_1';
+import PotiguarExploration2 from './potiguar/exploration_2';
+import BarreirinhasExploration1 from './barreirinhas/exploration_1';
+import BarreirinhasExploration2 from './barreirinhas/exploration_2';
+import BarreirinhasExploration3 from './barreirinhas/exploration_3';
 import mapData from '../data/mapData.json';
 
 function MapOverlay({ selectedZone = 'rio', selectedYear = '2025', activeLegendItems = {} }) {
   const [isRioPopoverOpen, setIsRioPopoverOpen] = useState(false);
   const [isMacaePopoverOpen, setIsMacaePopoverOpen] = useState(false);
   const [isSPPopoverOpen, setIsSPPopoverOpen] = useState(false);
+  const [isPelotasExploration1Open, setIsPelotasExploration1Open] = useState(false);
+  const [isPelotasExploration2Open, setIsPelotasExploration2Open] = useState(false);
+  const [isPotiguarExploration1Open, setIsPotiguarExploration1Open] = useState(false);
+  const [isPotiguarExploration2Open, setIsPotiguarExploration2Open] = useState(false);
+  const [isBarreirinhasExploration1Open, setIsBarreirinhasExploration1Open] = useState(false);
+  const [isBarreirinhasExploration2Open, setIsBarreirinhasExploration2Open] = useState(false);
+  const [isBarreirinhasExploration3Open, setIsBarreirinhasExploration3Open] = useState(false);
 
   // Return null if no data available for the selected zone/year
   const currentData = mapData[selectedYear]?.[selectedZone] || mapData['2025']?.rio || {};
 
   // Only show Rio popover when zone is 'rio'
   const showRioPopovers = selectedZone === 'rio';
+  // Show Pelotas popovers when zone is 'pelotas'
+  const showPelotasPopovers = selectedZone === 'pelotas';
+  // Show Potiguar popovers when zone is 'potiguar'
+  const showPotiguarPopovers = selectedZone === 'potiguar';
+  // Show Barreirinhas popovers when zone is 'barreirinhas'
+  const showBarreirinhasPopovers = selectedZone === 'barreirinhas';
+
+  const handlePinClick = (pin, type) => {
+    if (selectedZone === 'pelotas' && type === 'exploration') {
+      console.log('Pelotas pin clicked:', pin.id, pin.number);
+      // For Pelotas exploration pins, open specific exploration component based on pin id
+      if (pin.id === 'pel_exp1') {
+        setIsPelotasExploration1Open(true);
+      } else if (pin.id === 'pel_exp2') {
+        setIsPelotasExploration2Open(true);
+      }
+    } else if (selectedZone === 'potiguar' && type === 'exploration') {
+      console.log('Potiguar pin clicked:', pin.id, pin.number);
+      // For Potiguar exploration pins, open specific exploration component based on pin id
+      if (pin.id === 'pot_exp1') {
+        setIsPotiguarExploration1Open(true);
+      } else if (pin.id === 'pot_exp2') {
+        setIsPotiguarExploration2Open(true);
+      }
+    } else if (selectedZone === 'barreirinhas' && type === 'exploration') {
+      console.log('Barreirinhas pin clicked:', pin.id, pin.number);
+      // For Barreirinhas exploration pins, open specific exploration component based on pin id
+      if (pin.id === 'barr_exp1') {
+        setIsBarreirinhasExploration1Open(true);
+      } else if (pin.id === 'barr_exp2') {
+        setIsBarreirinhasExploration2Open(true);
+      } else if (pin.id === 'barr_exp3') {
+        setIsBarreirinhasExploration3Open(true);
+      }
+    }
+  };
 
   const PinComponent = ({ pin, type, visible }) => {
     if (!visible) return null;
-    
+
+    const isClickable = (selectedZone === 'pelotas' || selectedZone === 'potiguar' || selectedZone === 'barreirinhas') && type === 'exploration';
+
     return (
-      <div 
-        className={`map-pin ${type}-pin ${pin.number ? 'numbered-pin' : ''}`}
-        style={{ 
-          left: `${pin.x}%`, 
+      <div
+        className={`map-pin ${type}-pin ${pin.number ? 'numbered-pin' : ''} ${isClickable ? 'clickable' : ''}`}
+        style={{
+          left: `${pin.x}%`,
           top: `${pin.y}%`,
           transform: 'translate(-50%, -100%)'
         }}
+        onClick={isClickable ? () => handlePinClick(pin, type) : undefined}
       >
         <div className={`pin-body ${type}`}>
           {type === 'exploration' && (
@@ -217,6 +270,56 @@ function MapOverlay({ selectedZone = 'rio', selectedYear = '2025', activeLegendI
           <SPPopover
             isOpen={isSPPopoverOpen}
             onClose={() => setIsSPPopoverOpen(false)}
+          />
+        </>
+      )}
+
+      {/* Pelotas-specific Exploration Components - only render for Pelotas zone */}
+      {showPelotasPopovers && (
+        <>
+          <PelotasExploration1
+            isOpen={isPelotasExploration1Open}
+            onClose={() => setIsPelotasExploration1Open(false)}
+          />
+
+          <PelotasExploration2
+            isOpen={isPelotasExploration2Open}
+            onClose={() => setIsPelotasExploration2Open(false)}
+          />
+        </>
+      )}
+
+      {/* Potiguar-specific Exploration Components - only render for Potiguar zone */}
+      {showPotiguarPopovers && (
+        <>
+          <PotiguarExploration1
+            isOpen={isPotiguarExploration1Open}
+            onClose={() => setIsPotiguarExploration1Open(false)}
+          />
+
+          <PotiguarExploration2
+            isOpen={isPotiguarExploration2Open}
+            onClose={() => setIsPotiguarExploration2Open(false)}
+          />
+        </>
+      )}
+
+      {/* Barreirinhas-specific Exploration Components - only render for Barreirinhas zone */}
+      {showBarreirinhasPopovers && (
+        <>
+          <BarreirinhasExploration1
+            isOpen={isBarreirinhasExploration1Open}
+            onClose={() => setIsBarreirinhasExploration1Open(false)}
+          />
+
+          <BarreirinhasExploration2
+            isOpen={isBarreirinhasExploration2Open}
+            onClose={() => setIsBarreirinhasExploration2Open(false)}
+          />
+
+          <BarreirinhasExploration3
+            isOpen={isBarreirinhasExploration3Open}
+            onClose={() => setIsBarreirinhasExploration3Open(false)}
           />
         </>
       )}

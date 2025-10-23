@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import './App.css';
 import Timeline from './components/Timeline';
 import Toolbar from './components/Toolbar';
@@ -113,7 +113,7 @@ function App() {
         {/* Toolbar positioned middle-right */}
         <div style={{
           position: 'absolute',
-          top: '50%',
+          top: '60%',
           right: '30px',
           transform: 'translateY(-50%)',
           zIndex: 10

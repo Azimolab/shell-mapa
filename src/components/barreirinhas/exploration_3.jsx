@@ -1,3 +1,4 @@
+import React from 'react';
 import './exploration_3.css';
 
 function exploration_3({ isOpen, onClose }) {
