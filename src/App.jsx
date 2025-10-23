@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import './App.css';
 import Timeline from './components/Timeline';
-import Toolbar from './components/Toolbar';
+import Toolbar from './components/ResponsiveToolbar';
 import ShellAllType from './components/ShellAllType';
 import SVGMap from './components/SVGMap';
 import PinInteractionManager from './components/PinInteractionManager';
@@ -151,9 +151,12 @@ function App() {
         {/* Toolbar positioned middle-right */}
         <div style={{
           position: 'absolute',
-          top: '60%',
+          top: '50%',
           right: '30px',
           transform: 'translateY(-50%)',
+          maxHeight: 'calc(100vh - 60px)',
+          display: 'flex',
+          alignItems: 'center',
           zIndex: 10
         }}>
           <Toolbar
