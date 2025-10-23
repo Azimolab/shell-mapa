@@ -151,12 +151,9 @@ function App() {
         {/* Toolbar positioned middle-right */}
         <div style={{
           position: 'absolute',
-          top: '50%',
           right: '30px',
-          transform: 'translateY(-50%)',
-          maxHeight: 'calc(100vh - 60px)',
-          display: 'flex',
-          alignItems: 'center',
+          marginTop: '48px',
+          marginRight: '30px',
           zIndex: 10
         }}>
           <Toolbar
@@ -172,9 +169,7 @@ function App() {
         {/* Timeline positioned bottom-center */}
         <div style={{
           position: 'absolute',
-          bottom: '30px',
-          left: '50%',
-          transform: 'translateX(-50%)',
+          bottom: '20px',
           zIndex: 10
         }}>
           <Timeline
