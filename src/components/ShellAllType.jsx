@@ -1,15 +1,14 @@
-import React, { useState } from 'react';
-import './ShellAllType.css';
+import React from 'react';
 
 function ShellAllType({ 
   title = "Portifólio Shell Brasil",
   subtitle = "Exploração e produção de petróleo e gás em águas profundas (pré-sal)"
 }) {
   return (
-    <div className="shell-all-type-container">
-      <div className="shell-logo-container">
+    <div className="inline-flex flex-col justify-center items-start relative w-auto max-w-full scale-[0.7] origin-top-left">
+      <div className="flex w-[246px] h-[237px] p-[63px] justify-center items-center relative -mb-10">
         <svg 
-          className="shell-logo" 
+          className="w-[120px] h-[115px] shrink-0" 
           width="246" 
           height="237" 
           viewBox="0 0 246 237" 
@@ -39,9 +38,9 @@ function ShellAllType({
         </svg>
       </div>
 
-      <div className="shell-text-content">
-        <h1 className="shell-title">{title}</h1>
-        <p className="shell-subtitle">{subtitle}</p>
+      <div className="flex pl-[63px] flex-col items-start relative gap-2">
+        <h1 className="self-stretch text-grey-800 font-[Inter,-apple-system,Roboto,Helvetica,sans-serif] text-[84px] font-bold leading-normal m-0 max-[1400px]:text-[72px] max-[1200px]:text-[64px] max-[768px]:text-[56px] max-[480px]:text-[48px]">{title}</h1>
+        <p className="self-stretch text-grey-800 font-[Inter,-apple-system,Roboto,Helvetica,sans-serif] text-[32px] font-medium leading-normal m-0 max-[1400px]:text-[28px] max-[1200px]:text-2xl max-[768px]:text-xl max-[480px]:text-lg">{subtitle}</p>
       </div>
     </div>
   );

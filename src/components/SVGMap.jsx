@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import './SVGMap.css';
 import { getSVGByYear } from '../assets/mapas/index.js';
 
 function SVGMap({ selectedYear = '2025', activeLegendItems }) {
@@ -109,9 +108,9 @@ function SVGMap({ selectedYear = '2025', activeLegendItems }) {
   }, [svgContent, activeLegendItems]);
 
   return (
-    <div className="svg-map-container">
+    <div className="absolute top-0 left-0 w-screen h-screen overflow-hidden z-[1] m-0 p-0">
       <div 
-        className="svg-map-content"
+        className="w-full h-full block m-0 p-0 leading-none [&_svg]:block [&_svg]:max-w-full [&_svg]:max-h-full [&_svg]:w-auto [&_svg]:h-auto [&_svg]:m-0 [&_svg]:p-0 [&_[class*='pin']]:cursor-pointer [&_[class*='Pin']]:cursor-pointer [&_g[class*='pin']]:pointer-events-auto [&_g[class*='Pin']]:pointer-events-auto [&_g[id*='pin']]:pointer-events-auto [&_g[id*='Pin']]:pointer-events-auto"
         dangerouslySetInnerHTML={{ __html: svgContent }}
       />
     </div>

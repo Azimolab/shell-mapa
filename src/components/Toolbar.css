@@ -260,7 +260,6 @@
   border: 1px solid #E0E0E0;
   aspect-ratio: 1/1;
   background: #FFF;
-  transition: opacity 0.2s ease;
 }
 
 .toolbar-legend-label {
@@ -270,22 +269,6 @@
   font-style: normal;
   font-weight: 400;
   line-height: normal;
-  transition: color 0.2s ease, opacity 0.2s ease;
-}
-
-/* Hidden state for legend items */
-.toolbar-legend-item.hidden .toolbar-legend-label {
-  color: #9E9E9E;
-  opacity: 0.5;
-}
-
-.toolbar-legend-item.hidden .toolbar-legend-icon {
-  opacity: 0.4;
-}
-
-.toolbar-legend-item.hidden .toolbar-visibility-toggle svg path {
-  fill: #9E9E9E;
-  opacity: 0.5;
 }
 
 .toolbar-visibility-toggle {
@@ -300,12 +283,8 @@
   border-radius: 4px;
 }
 
-.toolbar-visibility-toggle svg path {
-  transition: fill 0.2s ease, opacity 0.2s ease;
-}
-
 .toolbar-visibility-toggle:hover {
-  background: #F5F5F5;
+  background: var(--grey-50);
   transform: scale(1.05);
 }
 

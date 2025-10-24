@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useRef } from 'react';
-import './App.css';
 import Timeline from './components/Timeline';
 import Toolbar from './components/ResponsiveToolbar';
 import ShellAllType from './components/ShellAllType';
@@ -127,14 +126,8 @@ function App() {
   };
 
   return (
-    <div className="app">
-      <div style={{
-        position: 'relative',
-        width: '100vw',
-        height: '100vh',
-        overflow: 'hidden',
-        backgroundColor: '#E8F4F8'
-      }}>
+    <div className="w-full h-full relative bg-blue-100 overflow-hidden">
+      <div className="relative w-screen h-screen overflow-hidden bg-[#E8F4F8]">
         {/* SVG Map - ocupa toda a tela */}
         <SVGMap
           selectedYear={selectedYear}
@@ -147,15 +140,8 @@ function App() {
           selectedYear={selectedYear}
         />
 
-
         {/* Toolbar positioned middle-right */}
-        <div style={{
-          position: 'absolute',
-          right: '30px',
-          marginTop: '48px',
-          marginRight: '30px',
-          zIndex: 10
-        }}>
+        <div className="absolute right-[30px] mt-12 mr-[30px] z-10">
           <Toolbar
             selectedArea={selectedZone}
             selectedYear={selectedYear}
@@ -167,11 +153,7 @@ function App() {
         </div>
 
         {/* Timeline positioned bottom-center */}
-        <div style={{
-          position: 'absolute',
-          bottom: '20px',
-          zIndex: 10
-        }}>
+        <div className="absolute bottom-5 z-10">
           <Timeline
             selectedYear={selectedYear}
             onYearSelect={handleYearSelect}
