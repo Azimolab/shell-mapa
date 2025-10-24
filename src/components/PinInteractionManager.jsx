@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import RioLocationPopover from './rio/RioLocationPopover';
-import SPLocationPopover from './rio/SPLocationPopover';
-import MacaeLocationPopover from './rio/MacaeLocationPopover';
+import SPPopover from './rio/SPPopover';
+import MacaePopover from './rio/MacaePopover';
+import RioPopOver from './rio/RioPopOver';
 import ExplorationPopover from './popovers/ExplorationPopover';
 import ProductionPopover from './popovers/ProductionPopover';
 import pinsInfo from '../data/pinsInfo.json';
@@ -13,7 +13,6 @@ import pinsInfo from '../data/pinsInfo.json';
 function PinInteractionManager({ selectedYear, selectedZone }) {
   const [activePopover, setActivePopover] = useState(null);
   const [popoverData, setPopoverData] = useState(null);
-  const [anchorEl, setAnchorEl] = useState(null);
 
   useEffect(() => {
     // Aguardar a renderização do SVG
@@ -26,30 +25,6 @@ function PinInteractionManager({ selectedYear, selectedZone }) {
       removePinListeners();
     };
   }, [selectedYear, selectedZone]);
-
-  // Efeito para adicionar classe 'active' aos pins de localização quando o popover está aberto
-  useEffect(() => {
-    const svgElement = document.querySelector('.svg-map-content svg');
-    if (!svgElement) return;
-
-    // Remove classe active de todos os location pins
-    const allLocationPins = svgElement.querySelectorAll('g[id^="Pin_"]');
-    allLocationPins.forEach(pin => {
-      pin.classList.remove('active');
-    });
-
-    // Adiciona classe active ao pin correspondente ao popover aberto
-    if (activePopover === 'location_rio') {
-      const rioPin = svgElement.querySelector('g[id="Pin_Rio"]');
-      if (rioPin) rioPin.classList.add('active');
-    } else if (activePopover === 'location_sp') {
-      const spPin = svgElement.querySelector('g[id="Pin_SP"]');
-      if (spPin) spPin.classList.add('active');
-    } else if (activePopover === 'location_macae') {
-      const macaePin = svgElement.querySelector('g[id="Pin_Macae"]');
-      if (macaePin) macaePin.classList.add('active');
-    }
-  }, [activePopover]);
 
   const setupPinListeners = () => {
     const svgElement = document.querySelector('.svg-map-content svg');
@@ -121,9 +96,6 @@ function PinInteractionManager({ selectedYear, selectedZone }) {
     const element = event.currentTarget;
     let pinId = element.id || element.getAttribute('data-pin-id');
     const pinClass = element.className?.baseVal || element.className;
-    
-    // Armazenar o elemento clicado como âncora para o popover
-    setAnchorEl(element);
     
     console.log('🔴 PIN CLICKED:', { pinId, pinClass, element });
 
@@ -317,7 +289,6 @@ function PinInteractionManager({ selectedYear, selectedZone }) {
   const closePopover = () => {
     setActivePopover(null);
     setPopoverData(null);
-    setAnchorEl(null);
   };
 
   // Debug logs
@@ -330,30 +301,19 @@ function PinInteractionManager({ selectedYear, selectedZone }) {
 
   return (
     <>
-      {/* Popovers de localizações específicas com shadcn */}
-      {activePopover === 'location_sp' && (
-        <SPLocationPopover 
-          isOpen={true}
-          anchorEl={anchorEl}
-          onClose={closePopover} 
-        />
-      )}
-      
-      {activePopover === 'location_macae' && (
-        <MacaeLocationPopover 
-          isOpen={true}
-          anchorEl={anchorEl}
-          onClose={closePopover} 
-        />
-      )}
-      
-      {activePopover === 'location_rio' && (
-        <RioLocationPopover 
-          isOpen={true}
-          anchorEl={anchorEl}
-          onClose={closePopover} 
-        />
-      )}
+      {/* Popovers de localizações específicas */}
+      <SPPopover 
+        isOpen={activePopover === 'location_sp'} 
+        onClose={closePopover} 
+      />
+      <MacaePopover 
+        isOpen={activePopover === 'location_macae'} 
+        onClose={closePopover} 
+      />
+      <RioPopOver 
+        isOpen={activePopover === 'location_rio'} 
+        onClose={closePopover} 
+      />
       
       {/* Popovers genéricos baseados em dados */}
       {activePopover === 'exploration_type1' && (
