@@ -128,6 +128,7 @@
   background: #FFF;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
   white-space: nowrap;
+  transition: background 0.3s ease, box-shadow 0.3s ease;
 }
 
 .location-icon {
@@ -137,6 +138,11 @@
   gap: 5px;
   border-radius: 6px;
   background: #E0E0E0;
+  transition: background 0.3s ease;
+}
+
+.location-icon svg path {
+  transition: fill 0.3s ease;
 }
 
 .location-text {
@@ -153,6 +159,7 @@
   font-style: normal;
   font-weight: 700;
   line-height: normal;
+  transition: color 0.3s ease;
 }
 
 .location-type {
@@ -163,6 +170,7 @@
   font-weight: 500;
   line-height: normal;
   text-transform: uppercase;
+  transition: color 0.3s ease;
 }
 
 .location-pointer {
@@ -174,6 +182,37 @@
   transform: translateX(-50%);
   background: #FFF;
   clip-path: polygon(50% 100%, 0 0, 100% 0);
+  transition: background 0.3s ease;
+}
+
+/* Active Location Pin State */
+.location-pin.active {
+  z-index: 20 !important;
+}
+
+.location-pin.active .location-content {
+  background: #1F2937 !important;
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.3) !important;
+}
+
+.location-pin.active .location-icon {
+  background: #FFFFFF !important;
+}
+
+.location-pin.active .location-icon svg path {
+  fill: #1F2937 !important;
+}
+
+.location-pin.active .location-name {
+  color: #FFFFFF !important;
+}
+
+.location-pin.active .location-type {
+  color: #FFFFFF !important;
+}
+
+.location-pin.active .location-pointer {
+  background: #1F2937 !important;
 }
 
 /* Pipeline Overlays */

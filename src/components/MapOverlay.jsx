@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import './MapOverlay.css';
-import RioPopOver from './rio/RioPopOver';
-import MacaePopover from './rio/MacaePopover';
-import SPPopover from './rio/SPPopover';
+import RioLocationPopover from './rio/RioLocationPopover';
+import MacaeLocationPopover from './rio/MacaeLocationPopover';
+import SPLocationPopover from './rio/SPLocationPopover';
 import RioExploration1 from './rio/exploration_1';
 import RioExploration2 from './rio/exploration_2';
 import RioExploration3 from './rio/exploration_3';
@@ -148,10 +148,16 @@ function MapOverlay({ selectedZone = 'rio', selectedYear = '2025', activeLegendI
     };
 
     const isClickable = location.name === 'Rio de Janeiro' || location.name === 'Macaé' || location.name === 'São Paulo';
+    
+    // Verifica se o pin está ativo (popover aberto)
+    const isActive = 
+      (location.name === 'Rio de Janeiro' && isRioPopoverOpen) ||
+      (location.name === 'Macaé' && isMacaePopoverOpen) ||
+      (location.name === 'São Paulo' && isSPPopoverOpen);
 
     return (
       <div
-        className={`location-pin ${location.type} ${isClickable ? 'clickable' : ''}`}
+        className={`location-pin ${location.type} ${isClickable ? 'clickable' : ''} ${isActive ? 'active' : ''}`}
         style={{
           left: `${location.x}%`,
           top: `${location.y}%`,
@@ -286,19 +292,22 @@ function MapOverlay({ selectedZone = 'rio', selectedYear = '2025', activeLegendI
       {/* Rio-specific PopOvers - only render for Rio zone */}
       {showRioPopovers && (
         <>
-          <RioPopOver
+          <RioLocationPopover
             isOpen={isRioPopoverOpen}
             onClose={() => setIsRioPopoverOpen(false)}
+            centered
           />
 
-          <MacaePopover
+          <MacaeLocationPopover
             isOpen={isMacaePopoverOpen}
             onClose={() => setIsMacaePopoverOpen(false)}
+            centered
           />
 
-          <SPPopover
+          <SPLocationPopover
             isOpen={isSPPopoverOpen}
             onClose={() => setIsSPPopoverOpen(false)}
+            centered
           />
 
           <RioExploration1
