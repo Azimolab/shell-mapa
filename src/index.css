@@ -84,7 +84,6 @@ body {
   display: flex;
   min-width: 320px;
   min-height: 100vh;
-  background-color: #C0E6EC;
   overflow: hidden;
   font-family: 'ShellBook', 'Arial', 'Helvetica', sans-serif;
 }

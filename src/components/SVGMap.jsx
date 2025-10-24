@@ -22,9 +22,9 @@ function SVGMap({ selectedYear = '2025', activeLegendItems }) {
             .replace(/\s*width="[^"]*"/gi, '')
             .replace(/\s*height="[^"]*"/gi, '');
           
-          // Adiciona os novos atributos
+          // Adiciona os novos atributos para SVG ocupar toda a tela
           console.log('newAttrs:', newAttrs);
-          return `<svg ${newAttrs} preserveAspectRatio="xMidYMid meet">`;
+          return `<svg ${newAttrs} width="100%" height="100%" preserveAspectRatio="xMidYMid meet">`;
         }
       );
       
@@ -108,9 +108,9 @@ function SVGMap({ selectedYear = '2025', activeLegendItems }) {
   }, [svgContent, activeLegendItems]);
 
   return (
-    <div className="absolute top-0 left-0 w-screen h-screen overflow-hidden z-[1] m-0 p-0">
+    <div className="svg-map-container fixed inset-0 w-full h-full overflow-hidden z-[1]">
       <div 
-        className="w-full h-full block m-0 p-0 leading-none [&_svg]:block [&_svg]:max-w-full [&_svg]:max-h-full [&_svg]:w-auto [&_svg]:h-auto [&_svg]:m-0 [&_svg]:p-0 [&_[class*='pin']]:cursor-pointer [&_[class*='Pin']]:cursor-pointer [&_g[class*='pin']]:pointer-events-auto [&_g[class*='Pin']]:pointer-events-auto [&_g[id*='pin']]:pointer-events-auto [&_g[id*='Pin']]:pointer-events-auto"
+        className="svg-map-content w-full h-full [&_svg]:w-full [&_svg]:h-full [&_svg]:block [&_[class*='pin']]:cursor-pointer [&_[class*='Pin']]:cursor-pointer [&_g[class*='pin']]:pointer-events-auto [&_g[class*='Pin']]:pointer-events-auto [&_g[id*='pin']]:pointer-events-auto [&_g[id*='Pin']]:pointer-events-auto"
         dangerouslySetInnerHTML={{ __html: svgContent }}
       />
     </div>

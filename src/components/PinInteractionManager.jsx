@@ -97,7 +97,7 @@ function PinInteractionManager({ selectedYear, selectedZone }) {
     let pinId = element.id || element.getAttribute('data-pin-id');
     const pinClass = element.className?.baseVal || element.className;
     
-    console.log('Pin clicked:', { pinId, pinClass, element });
+    console.log('🔴 PIN CLICKED:', { pinId, pinClass, element });
 
     // Tentar mapear ID do SVG para ID do JSON
     let mappedId = mapSvgIdToJsonId(pinId, pinClass);
@@ -135,16 +135,18 @@ function PinInteractionManager({ selectedYear, selectedZone }) {
     });
     
     if (pinData) {
-      console.log('Pin data found:', pinData);
+      console.log('✅ Pin data found:', pinData);
+      console.log('📋 Setting activePopover to:', pinData.popoverType);
       setPopoverData(pinData);
       setActivePopover(pinData.popoverType);
     } else {
-      console.warn('No data found for pin:', pinId, 'mapped to:', mappedId);
-      console.warn('Available pins:', Object.keys(pinsInfo.pins));
+      console.warn('⚠️ No data found for pin:', pinId, 'mapped to:', mappedId);
+      console.warn('📦 Available pins:', Object.keys(pinsInfo.pins));
       
       // Fallback: mostrar popover genérico baseado no tipo
       const genericType = identifyGenericType(pinId, pinClass);
       if (genericType) {
+        console.log('🔄 Using generic type:', genericType);
         setPopoverData(genericType);
         setActivePopover(genericType.popoverType);
       }
@@ -289,6 +291,14 @@ function PinInteractionManager({ selectedYear, selectedZone }) {
     setPopoverData(null);
   };
 
+  // Debug logs
+  console.log('🔍 PinInteractionManager render:', {
+    activePopover,
+    hasPopoverData: !!popoverData,
+    explorationPopoverOpen: activePopover === 'exploration_type1',
+    productionPopoverOpen: activePopover === 'production_type1'
+  });
+
   return (
     <>
       {/* Popovers de localizações específicas */}
@@ -306,17 +316,21 @@ function PinInteractionManager({ selectedYear, selectedZone }) {
       />
       
       {/* Popovers genéricos baseados em dados */}
-      <ExplorationPopover
-        isOpen={activePopover === 'exploration_type1'}
-        onClose={closePopover}
-        data={popoverData}
-      />
+      {activePopover === 'exploration_type1' && (
+        <ExplorationPopover
+          isOpen={true}
+          onClose={closePopover}
+          data={popoverData}
+        />
+      )}
       
-      <ProductionPopover
-        isOpen={activePopover === 'production_type1'}
-        onClose={closePopover}
-        data={popoverData}
-      />
+      {activePopover === 'production_type1' && (
+        <ProductionPopover
+          isOpen={true}
+          onClose={closePopover}
+          data={popoverData}
+        />
+      )}
     </>
   );
 }

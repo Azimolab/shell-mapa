@@ -126,8 +126,8 @@ function App() {
   };
 
   return (
-    <div className="w-full h-full relative bg-blue-100 overflow-hidden">
-      <div className="relative w-screen h-screen overflow-hidden bg-[#E8F4F8]">
+    <div className="w-full h-full relative overflow-hidden bg-linear-to-r from-grass to-ocean-100">
+      <div className="relative w-screen h-screen overflow-hidden">
         {/* SVG Map - ocupa toda a tela */}
         <SVGMap
           selectedYear={selectedYear}
